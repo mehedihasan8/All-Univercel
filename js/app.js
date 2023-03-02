@@ -18,7 +18,7 @@ const displayAllData = (data) => {
     singleDiv.innerHTML = `
         <div class="card px-3 h-100">
             <div >
-            <img  src="${image}" style=" border-radius: 10px;" class="card-img-top my-3"     alt="..." />
+            <img  src="${image}" style="  border-radius: 10px;" class="card-img-top my-3"     alt="..." />
             
             </div>
             <div class="card-body p-0 m-0">
@@ -37,8 +37,9 @@ const displayAllData = (data) => {
                 <h5>${name}</h5>
                 <p><i class="fa-solid fa-calendar-days"></i> 10.12.5874</p>
               </div>
-              <div class="">
-                <a href="">
+              <div id ="details-btn" class="">
+                <a data-bs-toggle="modal"
+                    data-bs-target="#showDetails">
                  <i class="fa-solid text-dark fs-5 fa-circle-right"></i></a>
               </div>
             </div>
@@ -49,3 +50,7 @@ const displayAllData = (data) => {
   });
   // console.log(data);
 };
+
+document
+  .getElementById("details-btn")
+  .addEventListener("click", function () {});

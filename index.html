@@ -32,38 +32,106 @@
 
     <!-- Main section Star -->
 
-    <main class="container  my-4">
-      <div id="show-all-conainer" class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-          <div class="card h-100">
-            <img src="..." class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                <ol>
-                    <li>okay</li>
-                    <li>okay</li>
-                    <li>okay</li>
-                </ol>
-              </p>
-            </div>
-            <hr />
-            <div class="d-flex px-3 justify-content-between align-items-center">
-              <div class="">
-                <h5>chat.gpt</h5>
-                <p><i class="fa-solid fa-calendar-days"></i> 10.12.5874</p>
+    <main class="container my-4">
+      <div
+        id="show-all-conainer"
+        class="row row-cols-1 row-cols-md-3 g-4"
+      ></div>
+      <button class="btn btn-primary d-flex mx-auto my-4">show more</button>
+    </main>
+
+    <!-- Main section End -->
+
+    <!-- Button trigger modal -->
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#showDetails"
+    >
+      modal
+    </button>
+
+    <!-- Modal -->
+
+    <div
+      class="modal fade"
+      id="showDetails"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="showDetailsLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="d-flex justify-content-end">
+            <button
+              type="button"
+              class="btn-close bg-danger rounded-circle text-white p-2 m-2"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row row-cols-md-2 m-1 g-4">
+              <div class="bg-danger p-2 rounded rounded-3 text-white">
+                <p class="my-2 text-center">
+                  ChatGPT is an AI-powered chatbot platform that uses OpenAI's
+                  GPT technology to simulate human conversation.
+                </p>
+                <div
+                  class="d-flex gap-2 justify-content-evenly align-items-center"
+                >
+                  <div
+                    class="text-center bg-white rounded rounded-3 text-success"
+                  >
+                    <p class="my-2">$10/month Basic</p>
+                  </div>
+                  <div
+                    class="border bg-white rounded rounded-3 text-center text-success"
+                  >
+                    <p class="my-2">$50/month Pro</p>
+                  </div>
+                  <div
+                    class="border bg-white rounded rounded-3 text-center text-success"
+                  >
+                    <p class="my-2">Contact us Enterprise</p>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-around my-2">
+                  <div class="">
+                    <h5>Features</h5>
+                    <ul>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                    </ul>
+                  </div>
+                  <div class="">
+                    <h5>Integrations</h5>
+                    <ul>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <div class="">
-                <a href=""><i class="fa-solid text-dark fa-circle-right"></i></a>
+              <div>
+                <img src="" alt="" />
+                <h6 class="text-center">Hi, how are you doing today?</h6>
+                <p class="text-center">
+                  I'm doing well, thank you for asking. How can I assist you
+                  today?
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button class="btn btn-primary d-flex mx-auto my-4">show more</button>
-    </main>
-
-    <!-- Main section End -->
+    </div>
 
     <!--  Bootstrap javaScrip file -->
     <script
@@ -71,6 +139,7 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+
     <!-- locle javaScrip file  -->
     <script src="js/app.js"></script>
   </body>
