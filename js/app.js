@@ -1,16 +1,23 @@
-const loadAllData = () => {
+const loadAllData = (dataLimite) => {
   fetch("https://openapi.programming-hero.com/api/ai/tools")
     .then((res) => res.json())
-    .then((data) => displayAllData(data.data))
+    .then((data) => displayAllData(data.data, dataLimite))
     .catch((erorr) => {
       console.log(erorr);
     });
 };
 
-const displayAllData = (data) => {
+const displayAllData = (data, dataLimite) => {
   const dataShowContainer = document.getElementById("show-all-conainer");
   dataShowContainer.innerHTML = "";
-  data.tools.length = 6;
+
+  const seeMoreAll = document.getElementById("see-more");
+  if (dataLimite && data.tools.length > 6) {
+    data.tools = data.tools.slice(0, 6);
+    seeMoreAll.classList.remove("d-none");
+  } else {
+    seeMoreAll.classList.add("d-none");
+  }
   data.tools.forEach((datas) => {
     const { features, image, name, id } = datas;
     const singleDiv = document.createElement("div");
@@ -37,9 +44,7 @@ const displayAllData = (data) => {
                 <p><i class="fa-solid fa-calendar-days"></i> 10.12.5874</p>
               </div>
               <div id ="details-btn" class="">
-                <a data-bs-toggle="modal"
-                
-                    data-bs-target="#showDetails">
+                <a data-bs-toggle="modal" data-bs-target="#showDetails">
                  <i onclick = "loadDetailData('${id}')" class="fa-solid text-dark fs-4 fa-circle-right"></i></a>
               </div>
             </div>
@@ -120,4 +125,26 @@ const showDetailData = (singleDetailData) => {
             </div>
     `;
   console.log(singleDetailData);
+};
+
+// see more btn clikc here
+
+document.getElementById("see-more-btn").addEventListener("click", function () {
+  seeMore();
+});
+
+// see more heat
+
+const seeMore = (dataLimite) => {
+  loadAllData(dataLimite);
+};
+
+// spinner or loader hear
+const toggleSpinner = (isLoading) => {
+  const loaderSection = document.getElementById("loader");
+  if (isLoading) {
+    loaderSection.classList.remove("d-none");
+  } else {
+    loaderSection.classList.add("d-none");
+  }
 };

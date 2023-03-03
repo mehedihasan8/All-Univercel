@@ -21,7 +21,7 @@
     />
     <title>Hello, world!</title>
   </head>
-  <body onload="loadAllData()">
+  <body onload="loadAllData(6)">
     <!-- header section star -->
     <header class="container">
       <h2 class="text-center my-3">AI Universe Hub</h2>
@@ -33,11 +33,38 @@
     <!-- Main section Star -->
 
     <main class="container my-4">
-      <div
-        id="show-all-conainer"
-        class="row row-cols-1 row-cols-md-3 g-4"
-      ></div>
-      <button class="btn btn-primary d-flex mx-auto my-4">show more</button>
+      <!-- show all container start  -->
+      <section>
+        <div
+          id="show-all-conainer"
+          class="row row-cols-1 row-cols-md-3 g-4"
+        ></div>
+      </section>
+      <!-- show all container End  -->
+
+      <!-- see more section start -->
+      <section>
+        <div id="see-more" class="text-center d-none my-4">
+          <button id="see-more-btn" class="btn btn-primary">See More</button>
+        </div>
+      </section>
+      <!-- see more section End -->
+
+      <!-- spinner section start   -->
+
+      <section>
+        <div
+          id="loader"
+          style="height: 220px"
+          class="d-flex d-none justify-content-center align-items-center"
+        >
+          <div class="spinner-grow text-danger" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- spinner section end -->
     </main>
 
     <!-- Main section End -->
