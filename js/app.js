@@ -19,7 +19,8 @@ const displayAllData = (data, dataLimite) => {
     seeMoreAll.classList.add("d-none");
   }
   data.tools.forEach((datas) => {
-    const { features, image, name, id } = datas;
+    // console.log(datas);
+    const { features, image, name, id, published_in } = datas;
     const singleDiv = document.createElement("div");
     singleDiv.classList.add("col");
     singleDiv.innerHTML = `
@@ -28,20 +29,29 @@ const displayAllData = (data, dataLimite) => {
             <img  src="${image}" style="  border-radius: 10px;" class="card-img-top my-3"     alt="..." />
             </div>
             <div class="card-body p-0 m-0">
-              <h4 class="card-title">  Features  </h4>
+              <h4 class="card-title fw-bolder mt-3 ">  Features  </h4>
               <p class="card-text">
-                <ol class = 'm-0 p-3 '>
-                    <li>${features[0]}</li>
-                    <li>${features[1]}</li>
-                    <li>${features[2] ? features[2] : "Not Available"}</li>
+                <ol  class =  'm-0 p-3 '>
+                    <li class = "${
+                      features[0] === undefined ? "d-none" : ""
+                    }">${features[0]}</li>
+                    <li class = "${
+                      features[1] === undefined ? "d-none" : ""
+                    }">${features[1]}</li>
+                    <li class = "${
+                      features[2] === undefined ? "d-none" : ""
+                    }">${features[2]}</li>
+                    <li class = "${
+                      features[3] === undefined ? "d-none" : ""
+                    }">${features[3]}</li>
                 </ol>
               </p>
             </div>
             <hr/>
             <div class="d-flex px-1 justify-content-between align-items-center">
               <div class="">
-                <h5>${name}</h5>
-                <p><i class="fa-solid fa-calendar-days"></i> 10.12.5874</p>
+                <h5 class="fw-bolder my-3">${name}</h5>
+                <p><i class="fa-solid fa-calendar-days"></i> ${published_in}</p>
               </div>
               <div id ="details-btn" class="">
                 <a data-bs-toggle="modal" data-bs-target="#showDetails">
@@ -52,8 +62,8 @@ const displayAllData = (data, dataLimite) => {
       `;
     dataShowContainer.appendChild(singleDiv);
   });
+
   toggleSpinner(false);
-  // console.log(data);
 };
 
 const loadDetailData = (id) => {
@@ -67,12 +77,23 @@ const loadDetailData = (id) => {
 };
 const showDetailData = (singleDetailData) => {
   const modalBody = document.getElementById("modal-body");
-  const { description, integrations, features, image_link, pricing } =
-    singleDetailData;
+  const {
+    description,
+    integrations,
+    input_output_examples,
+    features,
+    image_link,
+    pricing,
+    accuracy,
+  } = singleDetailData;
+  console.log(singleDetailData);
+  // console.log(pricing ? pricing[0].price : "no data");
+  const accuracyData = accuracy.score * 100;
+  // console.log(accuracyData);
   modalBody.innerHTML = `
-        <div class="row row-cols-md-2 m-1 g-4">
-              <div class="bg-danger p-2 rounded rounded-3 text-white">
-                <p class="my-2 px-2 ">
+        <div class="row row-cols-md-2 mb-5 m-1 g-4">
+              <div class="bg-danger-subtle p-3 rounded rounded-3 fw-bold text-dark">
+                <p class="my-4 px-2 ">
                   ${description}
                 </p>
                 <div
@@ -81,51 +102,130 @@ const showDetailData = (singleDetailData) => {
                   <div
                     class="text-center bg-white rounded rounded-3 text-success"
                   >
-                    <p class="my-2 px-1">${pricing[0].price}</p>
+                    <p class="my-2 px-1">${
+                      pricing === null ||
+                      pricing[0].price === "0" ||
+                      pricing[0].price === "No cost"
+                        ? "Free of Cost/"
+                        : pricing[0].price
+                    } ${pricing ? pricing[0].plan : ""}</p>
                   </div>
                   <div
                     class="border bg-white rounded rounded-3 text-center text-secondary"
                   >
-                    <p class="my-2 px-1">$50/month Pro</p>
+                    <p class="my-2 px-1">${
+                      pricing === null ||
+                      pricing[1].price === "0" ||
+                      pricing[1].price === "No cost"
+                        ? "Free of Cost/"
+                        : pricing[1].price
+                    } ${pricing ? pricing[1].plan : ""}</p>
                   </div>
                   <div
-                    class="border bg-white rounded rounded-3 text-center text-success"
+                    class="border bg-white rounded rounded-3 text-center text-warning"
                   >
-                    <p class="my-2 px-1">Contact us Enterprise</p>
+                    <p class="my-2 px-1">${
+                      pricing === null ||
+                      pricing[2].price === "0" ||
+                      pricing[2].price === "No cost"
+                        ? "Free of Cost/"
+                        : pricing[2].price
+                    } ${pricing ? pricing[2].plan : ""}</p>
                   </div>
                 </div>
                 <div class="d-flex justify-content-around my-2">
                   <div class="">
-                    <h5>Features</h5>
-                    <ul>
-                      <li>${features[1].feature_name}</li>
-                      <li>${features[2].feature_name}</li>
-                      <li>${features[3].feature_name}</li>
+                    <h5  class="fw-bolder">Features</h5>
+                    <ul class = "m-0 px-3">
+                      <li class = "${
+                        features[1].feature_name === undefined ? "d-none" : ""
+                      }">${features[1].feature_name}</li>
+                      <li class = "${
+                        features[2].feature_name === undefined ? "d-none" : ""
+                      }">${features[2].feature_name}</li>
+                      <li class = "${
+                        features[3].feature_name === undefined ? "d-none" : ""
+                      }">${features[3].feature_name}</li>
                     </ul>
                   </div>
-                  <div class="">
-                    <h5>Integrations</h5>
-                    <ul>
-                      <li>${integrations[0]}</li>
-                      <li> ${integrations[1]}</li>
-                      <li> ${integrations[2]}</li>
+                  <div>
+                    <h5  class="fw-bolder">Integrations</h5>
+                    <ul  class = "m-0 px-3">
+                    <li class = "list-unstyled"> ${
+                      integrations ? "" : "Data Not Found"
+                    } </li>
+                      <li class = "${
+                        integrations === null || integrations[0] === undefined
+                          ? "d-none"
+                          : ""
+                      }">${
+    integrations ? integrations[0] : "Data Not found"
+  }</li>
+                      <li class = "${
+                        integrations === null || integrations[1] === undefined
+                          ? "d-none"
+                          : ""
+                      }">${
+    integrations ? integrations[1] : "Data Not found"
+  }</li>
+                      <li class = "${
+                        integrations === null || integrations[2] === undefined
+                          ? "d-none"
+                          : ""
+                      }">${
+    integrations ? integrations[2] : "Data Not found"
+  }</li>
+                      <li class = "${
+                        integrations === null || integrations[3] === undefined
+                          ? "d-none"
+                          : ""
+                      }">${
+    integrations ? integrations[3] : "Data Not found"
+  }</li>
+                      <li class = "${
+                        integrations === null || integrations[4] === undefined
+                          ? "d-none"
+                          : ""
+                      }">${
+    integrations ? integrations[4] : "Data Not found"
+  }</li>
+                      <li class = "${
+                        integrations === null || integrations[5] === undefined
+                          ? "d-none"
+                          : ""
+                      }">${
+    integrations ? integrations[5] : "Data Not found"
+  }</li>
                     </ul>
                   </div>
                 </div>
               </div>
               <div>
-                <img style="border-radius: 10px;" class ="img-fluid p-2" src="${
-                  image_link[0] ? image_link[0] : "picture"
-                }" alt="" />
-                <h6 class="text-center">Hi, how are you doing today?</h6>
+                <img src="${
+                  image_link ? image_link[0] : "picture"
+                }" class ="img-fluid rounded-top p-2"  alt="" />
+                <h4 class="text-center fw-bold my-2">${
+                  input_output_examples
+                    ? input_output_examples[0].input
+                    : "Can you give any example?"
+                }</h4>
                 <p class="text-center">
-                  I'm doing well, thank you for asking. How can I assist you
-                  today?
+                  ${
+                    input_output_examples
+                      ? input_output_examples[1].output
+                      : "No! Not Yet! Take a break!!!"
+                  }
                 </p>
               </div>
             </div>
     `;
-  console.log(singleDetailData);
+  // console.log(singleDetailData);
+};
+
+const loopData = (data) => {
+  data.forEach((loopSingelData) => {
+    console.log(loopSingelData);
+  });
 };
 
 // see more btn clikc here
@@ -141,6 +241,7 @@ const seeMore = (dataLimite) => {
 };
 
 // spinner or loader hear
+
 const toggleSpinner = (isLoading) => {
   const loaderSection = document.getElementById("loader");
   if (isLoading) {
