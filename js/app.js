@@ -52,6 +52,7 @@ const displayAllData = (data, dataLimite) => {
       `;
     dataShowContainer.appendChild(singleDiv);
   });
+  toggleSpinner(false);
   // console.log(data);
 };
 
