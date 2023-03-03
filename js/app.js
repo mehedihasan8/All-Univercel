@@ -89,7 +89,7 @@ const showDetailData = (singleDetailData) => {
   console.log(singleDetailData);
   // console.log(pricing ? pricing[0].price : "no data");
   const accuracyData = accuracy.score * 100;
-  // console.log(accuracyData);
+  console.log(accuracyData);
   modalBody.innerHTML = `
         <div class="row row-cols-md-2 mb-5 m-1 g-4">
               <div class="bg-danger-subtle p-3 rounded rounded-3 fw-bold text-dark">
@@ -106,7 +106,7 @@ const showDetailData = (singleDetailData) => {
                       pricing === null ||
                       pricing[0].price === "0" ||
                       pricing[0].price === "No cost"
-                        ? "Free of Cost/"
+                        ? "Free of Cost"
                         : pricing[0].price
                     } ${pricing ? pricing[0].plan : ""}</p>
                   </div>
@@ -117,7 +117,7 @@ const showDetailData = (singleDetailData) => {
                       pricing === null ||
                       pricing[1].price === "0" ||
                       pricing[1].price === "No cost"
-                        ? "Free of Cost/"
+                        ? "Free of Cost"
                         : pricing[1].price
                     } ${pricing ? pricing[1].plan : ""}</p>
                   </div>
@@ -126,9 +126,9 @@ const showDetailData = (singleDetailData) => {
                   >
                     <p class="my-2 px-1">${
                       pricing === null ||
-                      pricing[2].price === "0" ||
-                      pricing[2].price === "No cost"
-                        ? "Free of Cost/"
+                      pricing[1].price === "0" ||
+                      pricing[1].price === "No cost"
+                        ? "Free of Cost"
                         : pricing[2].price
                     } ${pricing ? pricing[2].plan : ""}</p>
                   </div>
@@ -201,9 +201,14 @@ const showDetailData = (singleDetailData) => {
                 </div>
               </div>
               <div>
-                <img src="${
-                  image_link ? image_link[0] : "picture"
-                }" class ="img-fluid rounded-top p-2"  alt="" />
+                <div class = "position-relative">
+                    <div class="badge text-bg-warning position-absolute start-50 mt-3 p-2 ms-5 ${
+                      accuracyData === 0 ? "d-none" : ""
+                    } "> ${accuracyData ? accuracyData : ""}% accuracy</div>
+                    <img src="${
+                      image_link ? image_link[0] : "picture"
+                    }" class ="img-fluid rounded-top p-2"  alt="" />
+                </div>
                 <h4 class="text-center fw-bold my-2">${
                   input_output_examples
                     ? input_output_examples[0].input
