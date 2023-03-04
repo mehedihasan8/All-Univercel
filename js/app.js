@@ -1,30 +1,40 @@
-const loadAllData = (dataLimite) => {
+const loadAllData = (dataLimite, sort) => {
   fetch("https://openapi.programming-hero.com/api/ai/tools")
     .then((res) => res.json())
-    .then((data) => displayAllData(data.data, dataLimite))
+    .then((data) => {
+      displayAllData(data.data, dataLimite, sort);
+    })
     .catch((erorr) => {
       console.log(erorr);
     });
 };
 
-const displayAllData = (data, dataLimite) => {
+const displayAllData = (data, dataLimite, sort) => {
   const dataShowContainer = document.getElementById("show-all-conainer");
   dataShowContainer.innerHTML = "";
 
   const seeMoreAll = document.getElementById("see-more");
-  if (dataLimite && data.tools.length > 6) {
+  if (!dataLimite && data.tools.length > 6) {
     data.tools = data.tools.slice(0, 6);
     seeMoreAll.classList.remove("d-none");
   } else {
     seeMoreAll.classList.add("d-none");
   }
+
+  if (sort) {
+    data.tools.sort(
+      (a, b) =>
+        new Date(a.published_in).getTime() - new Date(b.published_in).getTime()
+    );
+  }
+
   data.tools.forEach((datas) => {
-    // console.log(datas);
     const { features, image, name, id, published_in } = datas;
+    publishDate = published_in;
     const singleDiv = document.createElement("div");
     singleDiv.classList.add("col");
     singleDiv.innerHTML = `
-        <div class="card px-3 h-100">
+        <div class="card p-3 m-1 h-100">
             <div >
             <img  src="${image}" style="  border-radius: 10px;" class="card-img-top my-3"     alt="..." />
             </div>
@@ -91,7 +101,7 @@ const showDetailData = (singleDetailData) => {
   const accuracyData = accuracy.score * 100;
   console.log(accuracyData);
   modalBody.innerHTML = `
-        <div class="row row-cols-md-2 mb-5 m-1 g-4">
+        <div class="row row-cols-md-2 d-flex justify-content-center align-items-center mb-5 m-1 g-4">
               <div class="bg-danger-subtle p-3 rounded rounded-3 fw-bold text-dark">
                 <p class="my-4 px-2 ">
                   ${description}
@@ -233,17 +243,11 @@ const loopData = (data) => {
   });
 };
 
-// see more btn clikc here
-
-document.getElementById("see-more-btn").addEventListener("click", function () {
-  seeMore();
-});
-
 // see more heat
 
-const seeMore = (dataLimite) => {
-  loadAllData(dataLimite);
-};
+// const seeMore = (dataLimite) => {
+//   loadAllData(dataLimite);
+// };
 
 // spinner or loader hear
 
@@ -255,3 +259,20 @@ const toggleSpinner = (isLoading) => {
     loaderSection.classList.add("d-none");
   }
 };
+
+let showAll = false;
+let sortAll = false;
+
+// see more btn clikc here
+
+document.getElementById("see-more-btn").addEventListener("click", function () {
+  showAll = true;
+  loadAllData(true, sortAll);
+});
+
+// sort mathode here
+
+document.getElementById("sort-btn").addEventListener("click", function () {
+  sortAll = true;
+  loadAllData(showAll, true);
+});
