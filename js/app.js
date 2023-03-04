@@ -65,7 +65,7 @@ const displayAllData = (data, dataLimite, sort) => {
               </div>
               <div id ="details-btn" class="">
                 <a data-bs-toggle="modal" data-bs-target="#showDetails">
-                 <i onclick = "loadDetailData('${id}')" class="fa-solid text-dark fs-4 fa-circle-right"></i></a>
+                 <i onclick = "loadDetailData('${id}'); " class="fa-solid text-dark fs-4 fa-circle-right"></i></a>
               </div>
             </div>
           </div>
@@ -96,10 +96,9 @@ const showDetailData = (singleDetailData) => {
     pricing,
     accuracy,
   } = singleDetailData;
-  console.log(singleDetailData);
-  // console.log(pricing ? pricing[0].price : "no data");
+
   const accuracyData = accuracy.score * 100;
-  console.log(accuracyData);
+
   modalBody.innerHTML = `
         <div class="row row-cols-md-2 d-flex justify-content-center align-items-center mb-5 m-1 g-4">
               <div class="bg-danger-subtle p-3 rounded rounded-3 fw-bold text-dark">
@@ -217,7 +216,7 @@ const showDetailData = (singleDetailData) => {
                     } "> ${accuracyData ? accuracyData : ""}% accuracy</div>
                     <img src="${
                       image_link ? image_link[0] : "picture"
-                    }" class ="img-fluid rounded-top p-2"  alt="" />
+                    }" class ="w-100  rounded-3 "  alt="" />
                 </div>
                 <h4 class="text-center fw-bold my-2">${
                   input_output_examples
@@ -227,14 +226,13 @@ const showDetailData = (singleDetailData) => {
                 <p class="text-center">
                   ${
                     input_output_examples
-                      ? input_output_examples[1].output
+                      ? input_output_examples[0].output
                       : "No! Not Yet! Take a break!!!"
                   }
                 </p>
               </div>
             </div>
     `;
-  // console.log(singleDetailData);
 };
 
 const loopData = (data) => {
@@ -242,12 +240,6 @@ const loopData = (data) => {
     console.log(loopSingelData);
   });
 };
-
-// see more heat
-
-// const seeMore = (dataLimite) => {
-//   loadAllData(dataLimite);
-// };
 
 // spinner or loader hear
 
@@ -271,7 +263,6 @@ document.getElementById("see-more-btn").addEventListener("click", function () {
 });
 
 // sort mathode here
-
 document.getElementById("sort-btn").addEventListener("click", function () {
   sortAll = true;
   loadAllData(showAll, true);
